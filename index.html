@@ -10,4 +10,14 @@
     <h3>Prima prova</h3>
     <p>provo a mandare e a ricevere dati al server creato con node.js basati sulla semplice connessione di un utente</p>
 </body>
+
+<script>
+    // automaticamente avvia la connessione al websocket server ospitato nella porta 8082
+    const ws = new WebSocket('ws://localhost:8082')
+    
+    // il server ascolta un evento, in questo caso la sua apertura e esegue la callback
+    ws.addEventListener('open', () => {
+        console.log('utente collegato')
+    })
+</script>
 </html>
