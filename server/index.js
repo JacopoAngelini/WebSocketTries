@@ -7,6 +7,12 @@ const wss = new WebSocket.Server({ port: 8082 }) // crea il server specificando 
 wss.on('connection', ws => {
     console.log('un utente si è collegato!');
 
+    // quando arriva un messaggio da un utente (vedere index.js) performa un azione, i data vanno a finire in 'data'
+    ws.on('message', data => {
+        console.log(`un utente ha mandato il numero: ${data}`)
+
+    })
+
     // perferma un azione quando si chiude la connessione, ovvero quando la pagina viene chiusa o ricaricata
     ws.on('close', () => {  
         console.log('utente scollegato')
