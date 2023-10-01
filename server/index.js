@@ -9,7 +9,7 @@ function parseLocation(url) {
 
 let localURL = parseLocation(window.location);
 
-ws = new WebSocket("ws://" + localURL.host); // crea il server specificando dove il server viene ospitato ovvero la porta 8082
+ws = new WebSocket("wss://" + localURL.host); // crea il server specificando dove il server viene ospitato ovvero la porta 8082
 
 // il server ascolta un evento, in questo caso basato sulla connesione di un utente al server tramite ''connection'', e performa l'azione nella callback
 
