@@ -30,7 +30,8 @@
 
 <script>
     // automaticamente avvia la connessione al websocket server ospitato nella porta 8082
-    const ws = new WebSocket('ws://localhost:8082')
+    console.log('porcoddio')
+    const wss = new WebSocket('wss://localhost:8082')
 
     // il server ascolta un evento, in questo caso la sua apertura e esegue la callback, con send manda dei dati al 'message' del index.js
     ws.addEventListener('open', () => {
