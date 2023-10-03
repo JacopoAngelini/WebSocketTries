@@ -1,6 +1,6 @@
 const WebSocket = require("ws"); // include il modulo di ws: il principale server di websocket
 
-wss = new WebSocket.Server({ port: 8082 }); // crea il server specificando dove il server viene ospitato ovvero la porta 8082
+wss = new WebSocket.Server({ port: 8082}); // crea il server specificando dove il server viene ospitato ovvero la porta 8082
 
 // il server ascolta un evento, in questo caso basato sulla connesione di un utente al server tramite ''connection'', e performa l'azione nella callback
 
