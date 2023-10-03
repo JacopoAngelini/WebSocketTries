@@ -11,7 +11,7 @@ wss.on("connection", (ws) => {
   ws.on("message", (data) => {
     wss.clients.forEach(function each(client) {
         if (client !== ws && client.readyState === WebSocket.OPEN) {
-          client.send(data);
+          client.send(data.toString());
         }  });
   // perferma un azione quando si chiude la connessione, ovvero quando la pagina viene chiusa o ricaricata
   ws.on("close", () => {
