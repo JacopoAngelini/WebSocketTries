@@ -32,7 +32,7 @@
     console.log(window.location)
     
     // automaticamente avvia la connessione al websocket server ospitato nella porta 8082
-    const wss = new WebSocket("wss://" + window.location.host + ':443')
+    const wss = new WebSocket("wss://" + window.location.host + window.location.pathname +':443')
 
     // il server ascolta un evento, in questo caso la sua apertura e esegue la callback, con send manda dei dati al 'message' del index.js
     wss.addEventListener('open', () => {
