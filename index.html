@@ -29,7 +29,7 @@
 </body>
 
 <script>
-    console.log(window.location.host)
+    console.log(window.location)
     
     // automaticamente avvia la connessione al websocket server ospitato nella porta 8082
     const wss = new WebSocket("wss://" + window.location.host + ':443')
