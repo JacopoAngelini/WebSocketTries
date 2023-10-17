@@ -1,25 +1,38 @@
-const WebSocket = require("ws"); // include il modulo di ws: il principale server di websocket
+const https = require('https');
+const fs = require('fs');
+const WebSocket = require('ws');
+const selfsigned = require('selfsigned');
 
-wss = new WebSocket.Server({ port:3000 });
- // crea il server specificando dove il server viene ospitato ovvero la porta 8082
+// Generate a self-signed certificate and key
+const attrs = [{ name: 'commonName', value: 'localhost' }];
+const pems = selfsigned.generate(attrs, { days: 365 });
+const privateKey = pems.private;
+const certificate = pems.cert;
 
+const server = https.createServer({
+  key: privateKey,
+  cert: certificate,
+});
 
+const wss = new WebSocket.Server({ server });
 
-// il server ascolta un evento, in questo caso basato sulla connesione di un utente al server tramite ''connection'', e performa l'azione nella callback
+wss.on('connection', (ws) => {
+  console.log('A user has connected!');
 
-wss.on("connection", (ws) => {
-  console.log("un utente si è collegato!");
-
-  // quando arriva un messaggio da un utente (vedere index.js) performa un azione, i data vanno a finire in 'data'
-  ws.on("message", (data) => {
+  ws.on('message', (data) => {
+    // Broadcast the received message to all connected clients
     wss.clients.forEach(function each(client) {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
         client.send(data.toString());
       }
     });
-    // perferma un azione quando si chiude la connessione, ovvero quando la pagina viene chiusa o ricaricata
-    ws.on("close", () => {
-      console.log("utente scollegato");
-    });
   });
+
+  ws.on('close', () => {
+    console.log('User disconnected');
+  });
+});
+
+server.listen(3000, () => {
+  console.log('WebSocket server is listening on port 3000 (HTTPS)');
 });
